@@ -18,7 +18,7 @@ const state = {
   targetPlayerIndex: 1,
   mode: 'allure', // 'allure' | 'erotic' | 'naughty' | 'progressive'
   progressiveTurnCount: 0,
-  penaltyMode: 'deck', // 'deck' | 'custom'
+  penaltyPools: new Set(['deck']), // multiselect: 'deck' | 'shots' | 'custom'
   customPenaltyText:
     'Remove one item of clothing slowly, or grant your partner a 60-second uninterrupted request.',
   passCurtainEnabled: false,
@@ -144,8 +144,7 @@ const els = {
   pairingSegBtns: document.querySelectorAll('#pairing-mode-toggle .seg-btn'),
   tierPills: document.querySelectorAll('.tier-pill'),
   penaltySegBtns: document.querySelectorAll('#penalty-mode-toggle .seg-btn'),
-  penaltyDeckInfo: document.getElementById('penalty-deck-info'),
-  penaltyShotsInfo: document.getElementById('penalty-shots-info'),
+  penaltySummaryText: document.getElementById('penalty-summary-text'),
   penaltyCustomBox: document.getElementById('penalty-custom-box'),
   inputCustomPenalty: document.getElementById('input-custom-penalty'),
   chkPassCurtain: document.getElementById('chk-pass-curtain'),
@@ -346,23 +345,31 @@ function formatPrompt(template, forPrint = false) {
 }
 
 // ==================== DECK DRAW LOGIC ====================
+function getActivePenaltyPool() {
+  const pool = [];
+  if (state.penaltyPools.has('deck')) pool.push(...PENALTY_CARDS);
+  if (state.penaltyPools.has('shots')) pool.push(...SHOTS_PENALTY_CARDS);
+  if (state.penaltyPools.has('custom')) {
+    pool.push({
+      id: 'custom-penalty',
+      tier: 'penalty',
+      type: 'penalty',
+      title: 'House Penalty',
+      prompt: state.customPenaltyText || 'Honor your agreed house penalty.',
+      cue: 'Agreed House Rule',
+      durationSeconds: 0,
+    });
+  }
+  return pool.length > 0 ? pool : PENALTY_CARDS;
+}
+
 function drawCard(type) {
   if (type === 'penalty') {
-    if (state.penaltyMode === 'custom') {
-      return {
-        id: 'custom-penalty',
-        tier: 'penalty',
-        type: 'penalty',
-        title: 'House Penalty',
-        prompt: state.customPenaltyText || 'Honor your agreed house penalty.',
-        cue: 'Agreed House Rule',
-        durationSeconds: 0,
-      };
+    const pool = getActivePenaltyPool();
+    if (pool.length === 1 && pool[0].id === 'custom-penalty') {
+      return pool[0];
     }
-    if (state.penaltyMode === 'shots') {
-      return pickFromPool(SHOTS_PENALTY_CARDS);
-    }
-    return pickFromPool(PENALTY_CARDS);
+    return pickFromPool(pool);
   }
 
   const activeTier = getEffectiveTier();
@@ -586,7 +593,7 @@ function buildPrintBackHtml(card) {
 }
 
 function renderPrintDeck() {
-  const penaltyPool = state.penaltyMode === 'shots' ? SHOTS_PENALTY_CARDS : PENALTY_CARDS;
+  const penaltyPool = getActivePenaltyPool();
   const allCards = [...TIER_CARDS, ...penaltyPool];
   const includeBacks = els.chkIncludeBacks.checked;
   let html = allCards.map(buildPrintCardHtml).join('');
@@ -689,16 +696,34 @@ els.tierPills.forEach((pill) => {
   });
 });
 
+function updatePenaltyUI() {
+  els.penaltySegBtns.forEach((b) => {
+    const isActive = state.penaltyPools.has(b.dataset.pmode);
+    b.classList.toggle('active', isActive);
+    b.setAttribute('aria-pressed', String(isActive));
+  });
+  els.penaltyCustomBox.classList.toggle('hidden', !state.penaltyPools.has('custom'));
+
+  const labels = [];
+  if (state.penaltyPools.has('deck')) labels.push('Suggestion Deck (15)');
+  if (state.penaltyPools.has('shots')) labels.push('Shots & Sips (15)');
+  if (state.penaltyPools.has('custom')) labels.push('House Rule');
+  els.penaltySummaryText.innerHTML = `Select one or more pools. Active: <strong>${labels.join(' + ')}</strong>.`;
+}
+
 els.penaltySegBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
-    els.penaltySegBtns.forEach((b) => b.classList.remove('active'));
-    btn.classList.add('active');
-    state.penaltyMode = btn.dataset.pmode;
-    els.penaltyDeckInfo.classList.toggle('hidden', state.penaltyMode !== 'deck');
-    els.penaltyShotsInfo.classList.toggle('hidden', state.penaltyMode !== 'shots');
-    els.penaltyCustomBox.classList.toggle('hidden', state.penaltyMode !== 'custom');
+    const mode = btn.dataset.pmode;
+    if (state.penaltyPools.has(mode)) {
+      if (state.penaltyPools.size === 1) return; // keep at least one pool active
+      state.penaltyPools.delete(mode);
+    } else {
+      state.penaltyPools.add(mode);
+    }
+    updatePenaltyUI();
   });
 });
+updatePenaltyUI();
 
 els.btnStartGame.addEventListener('click', () => {
   state.players = state.players.map((p, i) => p.trim() || `Player ${i + 1}`);

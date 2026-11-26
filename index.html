@@ -11,7 +11,7 @@
     rel="stylesheet"
   />
   <link href="https://fonts.cdnfonts.com/css/aileron" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="styles.css?v=5" />
 </head>
 <body>
   <!-- Hidden SVG Sprite for crisp gold-foil icons -->
@@ -178,22 +178,16 @@
         <div class="panel panel-wide">
           <div class="panel-header-inline">
             <h2 class="panel-title">III. Penalty Protocol</h2>
-            <div class="segmented" id="penalty-mode-toggle">
-              <button type="button" class="seg-btn active" data-pmode="deck">Suggestion Deck (15)</button>
-              <button type="button" class="seg-btn" data-pmode="shots">Shots &amp; Sips (15)</button>
-              <button type="button" class="seg-btn" data-pmode="custom">House Rule</button>
+            <div class="segmented" id="penalty-mode-toggle" aria-label="Select one or more penalty pools">
+              <button type="button" class="seg-btn active" data-pmode="deck" aria-pressed="true">Suggestion Deck (15)</button>
+              <button type="button" class="seg-btn" data-pmode="shots" aria-pressed="false">Shots &amp; Sips (15)</button>
+              <button type="button" class="seg-btn" data-pmode="custom" aria-pressed="false">House Rule</button>
             </div>
           </div>
 
           <div id="penalty-deck-info" class="penalty-info">
-            <p class="muted">
-              When the die lands on <strong>Protea (Penalty)</strong>—or when a player passes—draw from the 15 curated Penalty Suggestion cards.
-            </p>
-          </div>
-
-          <div id="penalty-shots-info" class="penalty-info hidden">
-            <p class="muted">
-              When the die lands on <strong>Protea (Penalty)</strong>—or when a player passes—draw from the 15 curated <strong>Shots &amp; Sips</strong> drinking penalty cards.
+            <p class="muted" id="penalty-summary-text">
+              Select one or more pools. Active: <strong>Suggestion Deck (15)</strong>.
             </p>
           </div>
 
@@ -397,6 +391,6 @@
   <!-- Dedicated Print Container (only visible during @media print) -->
   <div id="print-sheet" class="print-only"></div>
 
-  <script type="module" src="app.js?v=4"></script>
+  <script type="module" src="app.js?v=5"></script>
 </body>
 </html>
