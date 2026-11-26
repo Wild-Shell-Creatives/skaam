@@ -217,7 +217,15 @@ html, body {
   gap: 0.75rem;
 }
 
+.player-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
 .player-row input {
+  flex: 1;
+  min-width: 0;
   width: 100%;
   background: rgba(47, 51, 53, 0.78);
   border: 1px solid var(--gold-soft);
@@ -228,6 +236,54 @@ html, body {
   font-size: 0.9rem;
   outline: none;
   transition: border-color 0.2s;
+}
+
+.gender-pills {
+  display: inline-flex;
+  flex-shrink: 0;
+  background: rgba(47, 51, 53, 0.78);
+  border: 1px solid var(--gold-soft);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.gender-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.38rem 0.44rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.gender-btn.active {
+  background: var(--skaam-pine);
+  color: #2c3032;
+  font-weight: 600;
+}
+
+.pairing-rule-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--gold-faint);
+}
+
+.pairing-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .player-row input:focus {

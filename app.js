@@ -5,6 +5,8 @@ const DIE_FACES = ['truth', 'dare', 'truth', 'dare', 'penalty', 'wild'];
 
 const state = {
   players: ['Player 1', 'Player 2'],
+  playerGenders: ['any', 'any'], // 'm' | 'f' | 'any'
+  pairingMode: 'open', // 'open' | 'opposite'
   currentPlayerIndex: 0,
   targetPlayerIndex: 1,
   mode: 'allure', // 'allure' | 'erotic' | 'naughty' | 'progressive'
@@ -131,6 +133,8 @@ const els = {
   btnStartGame: document.getElementById('btn-start-game'),
   playersList: document.getElementById('players-list'),
   playerCountBtns: document.querySelectorAll('#player-count-selector .seg-btn'),
+  pairingRuleBox: document.getElementById('pairing-rule-box'),
+  pairingSegBtns: document.querySelectorAll('#pairing-mode-toggle .seg-btn'),
   tierPills: document.querySelectorAll('.tier-pill'),
   penaltySegBtns: document.querySelectorAll('#penalty-mode-toggle .seg-btn'),
   penaltyDeckInfo: document.getElementById('penalty-deck-info'),
@@ -244,20 +248,34 @@ function syncLiveTierButtons() {
 }
 
 // ==================== PLAYER & TARGET MANAGEMENT ====================
-function pickRandomTarget() {
+function getEligibleTargets() {
   const others = state.players
     .map((_, idx) => idx)
     .filter((idx) => idx !== state.currentPlayerIndex);
-  state.targetPlayerIndex = others[Math.floor(Math.random() * others.length)];
+
+  if (state.pairingMode === 'opposite' && state.players.length >= 3) {
+    const myGender = state.playerGenders[state.currentPlayerIndex] || 'any';
+    if (myGender === 'm' || myGender === 'f') {
+      const wanted = myGender === 'm' ? 'f' : 'm';
+      const opposite = others.filter((idx) => state.playerGenders[idx] === wanted);
+      if (opposite.length > 0) return opposite;
+      const flexible = others.filter((idx) => (state.playerGenders[idx] || 'any') === 'any');
+      if (flexible.length > 0) return flexible;
+    }
+  }
+  return others;
+}
+
+function pickRandomTarget() {
+  const eligible = getEligibleTargets();
+  state.targetPlayerIndex = eligible[Math.floor(Math.random() * eligible.length)];
 }
 
 function cycleTarget() {
-  if (state.players.length <= 2) return;
-  let next = (state.targetPlayerIndex + 1) % state.players.length;
-  if (next === state.currentPlayerIndex) {
-    next = (next + 1) % state.players.length;
-  }
-  state.targetPlayerIndex = next;
+  const eligible = getEligibleTargets();
+  if (eligible.length <= 1) return;
+  const pos = eligible.indexOf(state.targetPlayerIndex);
+  state.targetPlayerIndex = eligible[(pos + 1) % eligible.length];
   updatePlayerDisplay();
   if (state.currentCard) {
     els.cardPrompt.textContent = formatPrompt(state.currentCard.prompt);
@@ -265,9 +283,10 @@ function cycleTarget() {
 }
 
 function updatePlayerDisplay() {
+  const eligible = getEligibleTargets();
   els.activePlayerName.textContent = state.players[state.currentPlayerIndex];
   els.targetPlayerName.textContent = state.players[state.targetPlayerIndex];
-  els.targetSwapIcon.classList.toggle('hidden', state.players.length <= 2);
+  els.targetSwapIcon.classList.toggle('hidden', eligible.length <= 1);
   renderCommandToken();
 }
 
@@ -553,9 +572,11 @@ function renderPrintDeck() {
 function setPlayerCount(count) {
   while (state.players.length < count) {
     state.players.push(`Player ${state.players.length + 1}`);
+    state.playerGenders.push('any');
   }
   if (state.players.length > count) {
     state.players.length = count;
+    state.playerGenders.length = count;
   }
   els.playerCountBtns.forEach((btn) => {
     btn.classList.toggle('active', Number(btn.dataset.count) === count);
@@ -564,7 +585,10 @@ function setPlayerCount(count) {
 }
 
 function renderPlayerInputs() {
+  const showGenders = state.players.length >= 3;
+  els.pairingRuleBox.classList.toggle('hidden', !showGenders);
   els.playersList.innerHTML = '';
+
   state.players.forEach((name, idx) => {
     const row = document.createElement('div');
     row.className = 'player-row';
@@ -579,6 +603,32 @@ function renderPlayerInputs() {
       state.players[idx] = e.target.value;
     });
     row.appendChild(input);
+
+    if (showGenders) {
+      const pills = document.createElement('div');
+      pills.className = 'gender-pills';
+      pills.setAttribute('role', 'group');
+      pills.setAttribute('aria-label', `Player ${idx + 1} gender`);
+
+      [
+        { val: 'm', label: 'M' },
+        { val: 'f', label: 'F' },
+        { val: 'any', label: 'Any' },
+      ].forEach(({ val, label }) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `gender-btn${(state.playerGenders[idx] || 'any') === val ? ' active' : ''}`;
+        btn.textContent = label;
+        btn.addEventListener('click', () => {
+          state.playerGenders[idx] = val;
+          pills.querySelectorAll('.gender-btn').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+        pills.appendChild(btn);
+      });
+      row.appendChild(pills);
+    }
+
     els.playersList.appendChild(row);
   });
 }
@@ -586,6 +636,13 @@ function renderPlayerInputs() {
 // ==================== EVENT LISTENERS ====================
 els.playerCountBtns.forEach((btn) => {
   btn.addEventListener('click', () => setPlayerCount(Number(btn.dataset.count)));
+});
+els.pairingSegBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    els.pairingSegBtns.forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.pairingMode = btn.dataset.pairmode;
+  });
 });
 renderPlayerInputs();
 
