@@ -1,4 +1,11 @@
-import { TIERS, CARD_TYPES, TIER_CARDS, PENALTY_CARDS, SHOTS_PENALTY_CARDS } from './deck.js';
+import {
+  TIERS,
+  CARD_TYPES,
+  TIER_CARDS,
+  PENALTY_CARDS,
+  SHOTS_PENALTY_CARDS,
+  CARD_BACK_QUOTES,
+} from './deck.js';
 
 // 6-sided die faces: 2 Truth, 2 Dare, 1 Penalty, 1 Wild (Curator's Choice)
 const DIE_FACES = ['truth', 'dare', 'truth', 'dare', 'penalty', 'wild'];
@@ -168,6 +175,7 @@ const els = {
   cardBackIcon: document.getElementById('card-back-icon'),
   cardBackLabel: document.getElementById('card-back-label'),
   cardBackHint: document.getElementById('card-back-hint'),
+  cardBackQuote: document.getElementById('card-back-quote'),
   cardFront: document.getElementById('card-front'),
   cardTierTag: document.getElementById('card-tier-tag'),
   cardFrontIcon: document.getElementById('card-front-icon'),
@@ -377,6 +385,15 @@ function pickFromPool(pool) {
 }
 
 // ==================== CARD & TIMER RENDERING ====================
+function getQuoteForCard(card) {
+  let hash = 0;
+  const str = card?.id || String(Math.random());
+  for (let i = 0; i < str.length; i += 1) {
+    hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
+  }
+  return CARD_BACK_QUOTES[hash % CARD_BACK_QUOTES.length];
+}
+
 function prepareCardOnTable(card) {
   stopTimer();
   state.currentCard = card;
@@ -389,6 +406,7 @@ function prepareCardOnTable(card) {
   setSvgUse(els.cardBackIcon, typeMeta.icon);
   els.cardBackLabel.textContent = typeMeta.label;
   els.cardBackHint.textContent = 'Tap card to reveal';
+  els.cardBackQuote.textContent = `“${getQuoteForCard(card)}”`;
 
   els.cardFront.dataset.tier = card.tier;
   if (card.tier === 'penalty') {
@@ -546,15 +564,21 @@ function buildPrintCardHtml(card) {
 
 function buildPrintBackHtml(card) {
   const typeMeta = CARD_TYPES[card.type];
+  const quote = getQuoteForCard(card);
   return `
     <article class="p-card">
-      <div class="p-card-inner" style="justify-content:center; align-items:center; gap:0.5rem;">
-        <svg style="width:42px;height:42px;color:#C59F7B;"><use href="#icon-${typeMeta.icon}"></use></svg>
-        <div style="font-family:var(--font-display);font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:#f3efea;">
-          ${typeMeta.label}
-        </div>
-        <div style="font-family:var(--font-wordmark);font-size:0.88rem;letter-spacing:0.06em;color:#BCB29E;">
+      <div class="p-card-inner" style="justify-content:space-between; align-items:center; gap:0.4rem;">
+        <div style="font-family:var(--font-wordmark);font-size:0.84rem;letter-spacing:0.06em;color:#BCB29E;">
           skaam. play.
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.4rem;">
+          <svg style="width:42px;height:42px;color:#C59F7B;"><use href="#icon-${typeMeta.icon}"></use></svg>
+          <div style="font-family:var(--font-display);font-size:0.78rem;letter-spacing:0.2em;text-transform:uppercase;color:#f3efea;">
+            ${typeMeta.label}
+          </div>
+        </div>
+        <div style="font-family:var(--font-wordmark);font-style:italic;font-size:0.74rem;line-height:1.35;color:#C0AD96;padding-top:0.35rem;border-top:1px solid rgba(192,173,150,0.18);width:100%;">
+          “${quote}”
         </div>
       </div>
     </article>

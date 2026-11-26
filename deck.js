@@ -1,8 +1,23 @@
 /**
- * SKAAM. PLAY. — Expanded Curated Deck (55 Cards)
- * 15 Allure · 15 Erotic · 15 Naughty · 10 Penalty Suggestions
+ * SKAAM. PLAY. — Expanded Curated Deck (102 Cards)
+ * 24 Allure · 24 Erotic · 24 Naughty · 15 Penalty Suggestions · 15 Shots & Sips
  * Supports {target} placeholder for seamless 2-player and 3–6 player group play.
  */
+
+export const CARD_BACK_QUOTES = [
+  'Silence is where desire begins.',
+  'Take your time—the night is unhurried.',
+  'A glance held a second too long says everything.',
+  'Anticipation is the finest kind of touch.',
+  'Lean closer; the best secrets are whispered.',
+  'Let the fire burn slow.',
+  'Softness is its own kind of surrender.',
+  'Every pause is an invitation.',
+  'Warmth lingers longer than haste.',
+  'In the quiet, every breath speaks.',
+  'Curiosity is the spark; patience is the flame.',
+  'Some things are better felt than explained.',
+];
 
 export const TIERS = {
   allure: {
@@ -192,6 +207,96 @@ export const TIER_CARDS = [
     cue: 'Gentle & deliberate',
     durationSeconds: 0,
   },
+  {
+    id: 'allure-16',
+    tier: 'allure',
+    type: 'truth',
+    title: 'The Quiet Detail',
+    prompt:
+      'What is something {target} wears—or does effortlessly—that always makes you look twice?',
+    cue: 'Observant & warm',
+    durationSeconds: 0,
+  },
+  {
+    id: 'allure-17',
+    tier: 'allure',
+    type: 'dare',
+    title: 'Warmth of the Palm',
+    prompt:
+      'Interlace your fingers with {target}’s and rest your forehead lightly against theirs for 30 seconds. Breathe in sync.',
+    cue: '30 seconds · Synced breath',
+    durationSeconds: 30,
+  },
+  {
+    id: 'allure-18',
+    tier: 'allure',
+    type: 'truth',
+    title: 'The Ideal Setting',
+    prompt:
+      'If you could design the most seductive evening imaginable with {target}—lighting, music, scent, and pace—what would it feel like?',
+    cue: 'Paint the mood',
+    durationSeconds: 0,
+  },
+  {
+    id: 'allure-19',
+    tier: 'allure',
+    type: 'dare',
+    title: 'The Wrist Kiss',
+    prompt:
+      'Take {target}’s hand, turn their wrist upward, and press one slow, unhurried kiss directly over their pulse.',
+    cue: 'Unhurried',
+    durationSeconds: 0,
+  },
+  {
+    id: 'allure-20',
+    tier: 'allure',
+    type: 'truth',
+    title: 'Unspoken Compliment',
+    prompt:
+      'Share one deeply flattering thought you’ve had about {target} recently that you kept to yourself.',
+    cue: 'Spoken with eye contact',
+    durationSeconds: 0,
+  },
+  {
+    id: 'allure-21',
+    tier: 'allure',
+    type: 'dare',
+    title: 'Shoulder Trace',
+    prompt:
+      'Stand behind {target} and slowly trace both hands from their shoulders down their arms to their wrists. Repeat three times, slower each time.',
+    cue: 'Slow & grounding',
+    durationSeconds: 45,
+  },
+  {
+    id: 'allure-22',
+    tier: 'allure',
+    type: 'truth',
+    title: 'Magnetic Voice',
+    prompt:
+      'What is one phrase you’d love to hear {target} whisper to you when the room goes quiet?',
+    cue: 'Confession',
+    durationSeconds: 0,
+  },
+  {
+    id: 'allure-23',
+    tier: 'allure',
+    type: 'dare',
+    title: 'The Lingering Look',
+    prompt:
+      'Let {target} choose any song—or sit in silence—while you study their face for 30 seconds, then name the three features you’re most drawn to.',
+    cue: '30 seconds · Attentive',
+    durationSeconds: 30,
+  },
+  {
+    id: 'allure-24',
+    tier: 'allure',
+    type: 'truth',
+    title: 'First Spark',
+    prompt:
+      'When did you first realize there was real chemistry with {target}—and what gave it away?',
+    cue: 'Honest & warm',
+    durationSeconds: 0,
+  },
 
   // ==========================================
   // TIER II: EROTIC — THE SLOW BURN (15 cards)
@@ -344,6 +449,96 @@ export const TIER_CARDS = [
     prompt:
       'Whisper a three-sentence story into {target}’s ear describing what you’d like to happen the moment the lights go out.',
     cue: 'Whispered · 3 sentences',
+    durationSeconds: 0,
+  },
+  {
+    id: 'erotic-16',
+    tier: 'erotic',
+    type: 'truth',
+    title: 'The Slowest Turn-On',
+    prompt:
+      'What kind of touch—where and at what pressure—makes you completely lose your train of thought?',
+    cue: 'Be specific',
+    durationSeconds: 0,
+  },
+  {
+    id: 'erotic-17',
+    tier: 'erotic',
+    type: 'dare',
+    title: 'Collarbone Trail',
+    prompt:
+      'Kiss a slow, unhurried trail from behind {target}’s ear down to the hollow of their collarbone. Take a full 45 seconds.',
+    cue: '45 seconds · Slow',
+    durationSeconds: 45,
+  },
+  {
+    id: 'erotic-18',
+    tier: 'erotic',
+    type: 'truth',
+    title: 'The Hidden Fantasy',
+    prompt:
+      'Describe a scenario you’ve imagined with {target} that you’ve never said out loud until tonight.',
+    cue: 'Low voice',
+    durationSeconds: 0,
+  },
+  {
+    id: 'erotic-19',
+    tier: 'erotic',
+    type: 'dare',
+    title: 'Breath on Skin',
+    prompt:
+      'With {target}’s eyes closed, hover your lips a millimeter above their neck and jawline for 30 seconds—let them feel your warmth without quite touching.',
+    cue: '30 seconds · Anticipation',
+    durationSeconds: 30,
+  },
+  {
+    id: 'erotic-20',
+    tier: 'erotic',
+    type: 'truth',
+    title: 'Sound & Rhythm',
+    prompt:
+      'What sound or breath from {target} instantly raises the temperature for you?',
+    cue: 'Confession',
+    durationSeconds: 0,
+  },
+  {
+    id: 'erotic-21',
+    tier: 'erotic',
+    type: 'dare',
+    title: 'Guided Hands',
+    prompt:
+      'Take {target}’s hands and place them exactly where you want to be held for the next 45 seconds. Show them the pace you like.',
+    cue: '45 seconds · Lead',
+    durationSeconds: 45,
+  },
+  {
+    id: 'erotic-22',
+    tier: 'erotic',
+    type: 'truth',
+    title: 'The Tension Point',
+    prompt:
+      'Do you prefer the slow build of anticipation or the moment control finally slips—and how can {target} get you there faster?',
+    cue: 'Honest answer',
+    durationSeconds: 0,
+  },
+  {
+    id: 'erotic-23',
+    tier: 'erotic',
+    type: 'dare',
+    title: 'The Blindfold Tease',
+    prompt:
+      'Have {target} close their eyes while you kiss them softly in three different places of your choosing—pausing five seconds between each.',
+    cue: 'Eyes closed · 3 kisses',
+    durationSeconds: 30,
+  },
+  {
+    id: 'erotic-24',
+    tier: 'erotic',
+    type: 'truth',
+    title: 'Midnight Memory',
+    prompt:
+      'Recall the most electric physical moment you’ve ever shared with someone—what made it unforgettable?',
+    cue: 'Unfiltered',
     durationSeconds: 0,
   },
 
@@ -500,6 +695,96 @@ export const TIER_CARDS = [
     cue: '60 seconds · Crescendo',
     durationSeconds: 60,
   },
+  {
+    id: 'naughty-16',
+    tier: 'naughty',
+    type: 'truth',
+    title: 'No-Filter Desire',
+    prompt:
+      'Tell {target} the boldest thing you want them to do to you tonight—leave nothing vague.',
+    cue: 'Direct & bold',
+    durationSeconds: 0,
+  },
+  {
+    id: 'naughty-17',
+    tier: 'naughty',
+    type: 'dare',
+    title: 'One-Minute Devotion',
+    prompt:
+      '{target} leans back and does nothing for 60 seconds while you kiss and tease them wherever you choose, as slowly or boldly as you like.',
+    cue: '60 seconds · Hands off for {target}',
+    durationSeconds: 60,
+  },
+  {
+    id: 'naughty-18',
+    tier: 'naughty',
+    type: 'truth',
+    title: 'Power Play',
+    prompt:
+      'Tonight, would you rather be completely in command of {target} or completely at their mercy—and what is the first thing you’d want to happen?',
+    cue: 'Confession',
+    durationSeconds: 0,
+  },
+  {
+    id: 'naughty-19',
+    tier: 'naughty',
+    type: 'dare',
+    title: 'The Slow Reveal',
+    prompt:
+      'Remove one piece of clothing—or have {target} remove it for you—taking at least 30 seconds and never breaking eye contact.',
+    cue: '30 seconds · Unhurried',
+    durationSeconds: 30,
+  },
+  {
+    id: 'naughty-20',
+    tier: 'naughty',
+    type: 'truth',
+    title: 'Secret Limit',
+    prompt:
+      'What is one daring thing you’ve always been curious to try with {target} that you haven’t suggested yet?',
+    cue: 'Honest & curious',
+    durationSeconds: 0,
+  },
+  {
+    id: 'naughty-21',
+    tier: 'naughty',
+    type: 'dare',
+    title: 'Lap Seat',
+    prompt:
+      'Sit in {target}’s lap facing them for the next full minute. Whisper what you’re thinking while they keep their hands on your waist.',
+    cue: '60 seconds · Close',
+    durationSeconds: 60,
+  },
+  {
+    id: 'naughty-22',
+    tier: 'naughty',
+    type: 'truth',
+    title: 'The After-Hours Wish',
+    prompt:
+      'If this game ended right now and the two of you were completely alone, what would the first five minutes look like?',
+    cue: 'Paint the scene',
+    durationSeconds: 0,
+  },
+  {
+    id: 'naughty-23',
+    tier: 'naughty',
+    type: 'dare',
+    title: 'Hands Pinned',
+    prompt:
+      'Gently pin {target}’s wrists above their head (or against the couch) and kiss them slowly for 30 seconds. They may only respond with their lips.',
+    cue: '30 seconds · Controlled',
+    durationSeconds: 30,
+  },
+  {
+    id: 'naughty-24',
+    tier: 'naughty',
+    type: 'truth',
+    title: 'The Undoing',
+    prompt:
+      'What is the single fastest way {target} can make you lose all composure?',
+    cue: 'Total honesty',
+    durationSeconds: 0,
+  },
 ];
 
 // ==========================================
@@ -606,6 +891,56 @@ export const PENALTY_CARDS = [
     cue: 'Penalty · No pass',
     durationSeconds: 0,
   },
+  {
+    id: 'penalty-11',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'The Silent Gaze',
+    prompt:
+      'Sit knee-to-knee with {target} and hold unbroken eye contact for 45 seconds without speaking or smiling. If you break first, you owe them a kiss.',
+    cue: 'Penalty · 45 seconds',
+    durationSeconds: 45,
+  },
+  {
+    id: 'penalty-12',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'The Stolen Kiss',
+    prompt:
+      'Close your eyes and let {target} kiss you wherever they choose—once, slowly—while you keep your hands at your sides.',
+    cue: 'Penalty · Eyes closed',
+    durationSeconds: 0,
+  },
+  {
+    id: 'penalty-13',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'Three Compliments',
+    prompt:
+      'Whisper three shamelessly seductive compliments into {target}’s ear—each one bolder than the last.',
+    cue: 'Penalty · Whispered',
+    durationSeconds: 0,
+  },
+  {
+    id: 'penalty-14',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'The Footman’s Debt',
+    prompt:
+      'For the next two rounds, you are on duty for {target}: refill their glass, adjust their cushion, or answer any small request they make.',
+    cue: 'Penalty · 2 rounds',
+    durationSeconds: 0,
+  },
+  {
+    id: 'penalty-15',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'Double or Nothing',
+    prompt:
+      'Draw one card from the next tier up—or let {target} invent a 30-second dare on the spot.',
+    cue: 'Penalty · Escalate',
+    durationSeconds: 30,
+  },
 ];
 
 export const SHOTS_PENALTY_CARDS = [
@@ -707,6 +1042,56 @@ export const SHOTS_PENALTY_CARDS = [
     prompt:
       'Raise your glass, deliver a shamelessly flattering toast dedicated to {target}, and take a shot to seal it.',
     cue: 'Shots · Toast',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-11',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'Interlocked Arms',
+    prompt:
+      'Lock arms with {target} and drink a shot or generous sip together while maintaining unbroken eye contact.',
+    cue: 'Shots · Interlocked',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-12',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'The Whispered Sip',
+    prompt:
+      'Take a slow sip of your drink, then lean in and whisper one bold secret into {target}’s ear before they take a sip of theirs.',
+    cue: 'Sips · Whispered',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-13',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'Waterfall Gaze',
+    prompt:
+      'Start sipping your drink—you may only stop when {target} decides to break eye contact (up to 10 seconds).',
+    cue: 'Sips · 10 seconds',
+    durationSeconds: 10,
+  },
+  {
+    id: 'shots-14',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'The Slow Pour',
+    prompt:
+      'Pour a fresh drink for {target} as dramatically and attentively as possible, serve it with a kiss on the hand, then take a shot yourself.',
+    cue: 'Shots · Service',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-15',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'Truth or Shot',
+    prompt:
+      'Either take a full shot right now, or let {target} ask you any question of their own choosing—no dodging allowed.',
+    cue: 'Shots · Your choice',
     durationSeconds: 0,
   },
 ];

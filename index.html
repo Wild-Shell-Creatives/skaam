@@ -11,7 +11,7 @@
     rel="stylesheet"
   />
   <link href="https://fonts.cdnfonts.com/css/aileron" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 <body>
   <!-- Hidden SVG Sprite for crisp gold-foil icons -->
@@ -179,21 +179,21 @@
           <div class="panel-header-inline">
             <h2 class="panel-title">III. Penalty Protocol</h2>
             <div class="segmented" id="penalty-mode-toggle">
-              <button type="button" class="seg-btn active" data-pmode="deck">Suggestion Deck (10)</button>
-              <button type="button" class="seg-btn" data-pmode="shots">Shots &amp; Sips (10)</button>
+              <button type="button" class="seg-btn active" data-pmode="deck">Suggestion Deck (15)</button>
+              <button type="button" class="seg-btn" data-pmode="shots">Shots &amp; Sips (15)</button>
               <button type="button" class="seg-btn" data-pmode="custom">House Rule</button>
             </div>
           </div>
 
           <div id="penalty-deck-info" class="penalty-info">
             <p class="muted">
-              When the die lands on <strong>Protea (Penalty)</strong>—or when a player passes—draw from the 10 curated Penalty Suggestion cards.
+              When the die lands on <strong>Protea (Penalty)</strong>—or when a player passes—draw from the 15 curated Penalty Suggestion cards.
             </p>
           </div>
 
           <div id="penalty-shots-info" class="penalty-info hidden">
             <p class="muted">
-              When the die lands on <strong>Protea (Penalty)</strong>—or when a player passes—draw from the 10 curated <strong>Shots &amp; Sips</strong> drinking penalty cards.
+              When the die lands on <strong>Protea (Penalty)</strong>—or when a player passes—draw from the 15 curated <strong>Shots &amp; Sips</strong> drinking penalty cards.
             </p>
           </div>
 
@@ -313,6 +313,7 @@
                     <span class="back-type-label" id="card-back-label">Roll to Draw</span>
                     <span class="back-hint" id="card-back-hint">Roll the die to reveal your card</span>
                   </div>
+                  <p class="card-back-quote" id="card-back-quote">“Silence is where desire begins.”</p>
                 </div>
               </div>
 
@@ -396,6 +397,6 @@
   <!-- Dedicated Print Container (only visible during @media print) -->
   <div id="print-sheet" class="print-only"></div>
 
-  <script type="module" src="app.js?v=3"></script>
+  <script type="module" src="app.js?v=4"></script>
 </body>
 </html>
