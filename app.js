@@ -15,7 +15,8 @@ const state = {
   passCurtainEnabled: false,
   soundEnabled: true,
   usedIds: new Set(),
-  redeemedTokens: new Set(),
+  commandTokenOwner: null,
+  commandTokenRedeemed: false,
   currentCard: null,
   isFlipped: false,
   isRolling: false,
@@ -271,24 +272,36 @@ function updatePlayerDisplay() {
 }
 
 function renderCommandToken() {
-  const playerIdx = state.currentPlayerIndex;
-  const playerName = state.players[playerIdx];
-  const isRedeemed = state.redeemedTokens.has(playerIdx);
+  if (state.commandTokenOwner === null) {
+    els.commandToken.classList.add('hidden');
+    return;
+  }
 
+  const playerName = state.players[state.commandTokenOwner];
+  const isRedeemed = state.commandTokenRedeemed;
+
+  els.commandToken.classList.remove('hidden');
   els.tokenPlayerName.textContent = playerName;
   els.commandToken.classList.toggle('redeemed', isRedeemed);
   els.tokenStatus.textContent = isRedeemed
     ? 'Redeemed · Command issued'
-    : 'Available · Issue one command';
+    : 'Available · Redeem at any time';
   els.btnRedeemToken.textContent = isRedeemed ? 'Restore' : 'Redeem';
 }
 
+function awardCommandToken(playerIdx) {
+  state.commandTokenOwner = playerIdx;
+  state.commandTokenRedeemed = false;
+  renderCommandToken();
+  els.commandToken.classList.remove('just-redeemed');
+  void els.commandToken.offsetWidth;
+  els.commandToken.classList.add('just-redeemed');
+}
+
 function toggleCommandToken() {
-  const playerIdx = state.currentPlayerIndex;
-  if (state.redeemedTokens.has(playerIdx)) {
-    state.redeemedTokens.delete(playerIdx);
-  } else {
-    state.redeemedTokens.add(playerIdx);
+  if (state.commandTokenOwner === null) return;
+  state.commandTokenRedeemed = !state.commandTokenRedeemed;
+  if (state.commandTokenRedeemed) {
     playTimerChime();
     els.commandToken.classList.remove('just-redeemed');
     void els.commandToken.offsetWidth;
@@ -377,6 +390,10 @@ function flipCurrentCard() {
   els.cardActions.classList.remove('hidden');
 
   els.btnPassPenalty.classList.toggle('hidden', state.currentCard.type === 'penalty');
+
+  if (state.currentCard.id === 'penalty-2') {
+    awardCommandToken(state.targetPlayerIndex);
+  }
 
   if (state.currentCard.durationSeconds > 0) {
     setupTimer(state.currentCard.durationSeconds);
@@ -602,7 +619,8 @@ els.btnStartGame.addEventListener('click', () => {
   state.passCurtainEnabled = els.chkPassCurtain.checked;
   state.currentPlayerIndex = 0;
   state.progressiveTurnCount = 0;
-  state.redeemedTokens.clear();
+  state.commandTokenOwner = null;
+  state.commandTokenRedeemed = false;
   pickRandomTarget();
   updatePlayerDisplay();
   syncLiveTierButtons();
