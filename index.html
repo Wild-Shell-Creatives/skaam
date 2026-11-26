@@ -220,36 +220,51 @@
 
       <!-- Main Stage: Die + Card -->
       <div class="stage">
-        <!-- Left: Die Panel -->
-        <div class="die-panel">
-          <div class="die-stage">
-            <div id="die" class="die" aria-live="polite">
-              <div class="die-inner">
-                <svg class="die-icon" id="die-icon"><use href="#icon-wild"></use></svg>
-                <span class="die-label" id="die-label">Roll</span>
+        <!-- Left Column: Die Panel + Command Token -->
+        <div class="stage-left">
+          <div class="die-panel">
+            <div class="die-stage">
+              <div id="die" class="die" aria-live="polite">
+                <div class="die-inner">
+                  <svg class="die-icon" id="die-icon"><use href="#icon-wild"></use></svg>
+                  <span class="die-label" id="die-label">Roll</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <button id="btn-roll" class="btn-primary" type="button">Roll the Die</button>
+            <button id="btn-roll" class="btn-primary" type="button">Roll the Die</button>
 
-          <!-- Wild Choice (shown only when Curator's Choice is rolled) -->
-          <div id="wild-choice" class="wild-choice hidden">
-            <p class="wild-prompt">Curator’s Choice — select your draw:</p>
-            <div class="wild-buttons">
-              <button type="button" class="btn-outline" data-wild-pick="truth">
-                <svg class="inline-icon"><use href="#icon-keyhole"></use></svg> Truth
-              </button>
-              <button type="button" class="btn-outline" data-wild-pick="dare">
-                <svg class="inline-icon"><use href="#icon-flame"></use></svg> Dare
-              </button>
+            <!-- Wild Choice (shown only when Curator's Choice is rolled) -->
+            <div id="wild-choice" class="wild-choice hidden">
+              <p class="wild-prompt">Curator’s Choice — select your draw:</p>
+              <div class="wild-buttons">
+                <button type="button" class="btn-outline" data-wild-pick="truth">
+                  <svg class="inline-icon"><use href="#icon-keyhole"></use></svg> Truth
+                </button>
+                <button type="button" class="btn-outline" data-wild-pick="dare">
+                  <svg class="inline-icon"><use href="#icon-flame"></use></svg> Dare
+                </button>
+              </div>
+            </div>
+
+            <div class="legend">
+              <span><svg class="inline-icon"><use href="#icon-keyhole"></use></svg> Truth</span>
+              <span><svg class="inline-icon"><use href="#icon-flame"></use></svg> Dare</span>
+              <span><svg class="inline-icon"><use href="#icon-hourglass"></use></svg> Penalty</span>
             </div>
           </div>
 
-          <div class="legend">
-            <span><svg class="inline-icon"><use href="#icon-keyhole"></use></svg> Truth</span>
-            <span><svg class="inline-icon"><use href="#icon-flame"></use></svg> Dare</span>
-            <span><svg class="inline-icon"><use href="#icon-hourglass"></use></svg> Penalty</span>
+          <!-- Interactive Command Token -->
+          <div id="command-token" class="command-token" aria-live="polite">
+            <div class="token-medallion">
+              <svg class="token-icon"><use href="#icon-hourglass"></use></svg>
+            </div>
+            <div class="token-info">
+              <span class="token-eyebrow">Command Token</span>
+              <strong class="token-player" id="token-player-name">Player 1</strong>
+              <span class="token-status" id="token-status">Available · Issue one command</span>
+            </div>
+            <button type="button" class="token-btn" id="btn-redeem-token">Redeem</button>
           </div>
         </div>
 

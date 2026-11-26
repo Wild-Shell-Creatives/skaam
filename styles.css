@@ -498,6 +498,139 @@ html, body {
   align-items: start;
 }
 
+.stage-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Interactive Command Token */
+.command-token {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  background: linear-gradient(145deg, rgba(69, 74, 76, 0.85), rgba(47, 51, 53, 0.92));
+  border: 1px solid var(--skaam-sandstone);
+  border-radius: 16px;
+  padding: 1.1rem 1.15rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  transition: border-color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+}
+
+.command-token:not(.redeemed):hover {
+  border-color: var(--skaam-pine);
+  transform: translateY(-1px);
+}
+
+.command-token.redeemed {
+  border-color: var(--gold-faint);
+  background: rgba(47, 51, 53, 0.55);
+}
+
+.command-token.just-redeemed {
+  animation: tokenPulse 0.45s ease;
+}
+
+@keyframes tokenPulse {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.03); border-color: var(--skaam-pine); }
+  100% { transform: scale(1); }
+}
+
+.token-medallion {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(197, 159, 123, 0.28), rgba(47, 51, 53, 0.9));
+  border: 1.5px solid var(--skaam-pine);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s ease, border-color 0.25s ease;
+}
+
+.command-token.redeemed .token-medallion {
+  opacity: 0.45;
+  border-color: var(--skaam-stone);
+}
+
+.token-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--skaam-pine);
+}
+
+.token-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.token-eyebrow {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--skaam-pine);
+}
+
+.token-player {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cream);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.command-token.redeemed .token-player {
+  color: var(--skaam-stone);
+  text-decoration: line-through;
+  text-decoration-color: rgba(188, 178, 158, 0.6);
+}
+
+.token-status {
+  font-size: 0.7rem;
+  color: var(--skaam-stone);
+  line-height: 1.3;
+}
+
+.token-btn {
+  flex-shrink: 0;
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid var(--skaam-pine);
+  background: linear-gradient(135deg, #C59F7B 0%, #BDA182 100%);
+  color: #2c3032;
+  transition: all 0.2s ease;
+}
+
+.token-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(197, 159, 123, 0.3);
+}
+
+.command-token.redeemed .token-btn {
+  background: transparent;
+  color: var(--skaam-stone);
+  border-color: var(--gold-soft);
+}
+
+.command-token.redeemed .token-btn:hover {
+  color: var(--cream);
+  border-color: var(--skaam-pine);
+  box-shadow: none;
+}
+
 /* Die Panel */
 .die-panel {
   display: flex;
@@ -1063,7 +1196,7 @@ html, body {
     grid-template-columns: 1fr;
   }
 
-  .die-panel {
+  .stage-left {
     order: 1;
   }
 

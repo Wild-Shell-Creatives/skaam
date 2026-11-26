@@ -15,6 +15,7 @@ const state = {
   passCurtainEnabled: false,
   soundEnabled: true,
   usedIds: new Set(),
+  redeemedTokens: new Set(),
   currentCard: null,
   isFlipped: false,
   isRolling: false,
@@ -150,6 +151,12 @@ const els = {
   wildChoice: document.getElementById('wild-choice'),
   wildPickBtns: document.querySelectorAll('[data-wild-pick]'),
 
+  // Command Token
+  commandToken: document.getElementById('command-token'),
+  tokenPlayerName: document.getElementById('token-player-name'),
+  tokenStatus: document.getElementById('token-status'),
+  btnRedeemToken: document.getElementById('btn-redeem-token'),
+
   // Card
   playingCard: document.getElementById('playing-card'),
   cardBackIcon: document.getElementById('card-back-icon'),
@@ -260,6 +267,34 @@ function updatePlayerDisplay() {
   els.activePlayerName.textContent = state.players[state.currentPlayerIndex];
   els.targetPlayerName.textContent = state.players[state.targetPlayerIndex];
   els.targetSwapIcon.classList.toggle('hidden', state.players.length <= 2);
+  renderCommandToken();
+}
+
+function renderCommandToken() {
+  const playerIdx = state.currentPlayerIndex;
+  const playerName = state.players[playerIdx];
+  const isRedeemed = state.redeemedTokens.has(playerIdx);
+
+  els.tokenPlayerName.textContent = playerName;
+  els.commandToken.classList.toggle('redeemed', isRedeemed);
+  els.tokenStatus.textContent = isRedeemed
+    ? 'Redeemed · Command issued'
+    : 'Available · Issue one command';
+  els.btnRedeemToken.textContent = isRedeemed ? 'Restore' : 'Redeem';
+}
+
+function toggleCommandToken() {
+  const playerIdx = state.currentPlayerIndex;
+  if (state.redeemedTokens.has(playerIdx)) {
+    state.redeemedTokens.delete(playerIdx);
+  } else {
+    state.redeemedTokens.add(playerIdx);
+    playTimerChime();
+    els.commandToken.classList.remove('just-redeemed');
+    void els.commandToken.offsetWidth;
+    els.commandToken.classList.add('just-redeemed');
+  }
+  renderCommandToken();
 }
 
 function formatPrompt(template, forPrint = false) {
@@ -567,6 +602,7 @@ els.btnStartGame.addEventListener('click', () => {
   state.passCurtainEnabled = els.chkPassCurtain.checked;
   state.currentPlayerIndex = 0;
   state.progressiveTurnCount = 0;
+  state.redeemedTokens.clear();
   pickRandomTarget();
   updatePlayerDisplay();
   syncLiveTierButtons();
@@ -584,6 +620,7 @@ els.liveTierBtns.forEach((btn) => {
 });
 
 els.btnRoll.addEventListener('click', rollDie);
+els.btnRedeemToken.addEventListener('click', toggleCommandToken);
 
 els.wildPickBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
