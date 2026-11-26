@@ -474,12 +474,12 @@ function buildPrintBackHtml(card) {
   return `
     <article class="p-card">
       <div class="p-card-inner" style="justify-content:center; align-items:center; gap:0.5rem;">
-        <svg style="width:42px;height:42px;color:#d4af37;"><use href="#icon-${typeMeta.icon}"></use></svg>
-        <div style="font-family:var(--font-display);font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:#f4ece1;">
+        <svg style="width:42px;height:42px;color:#C59F7B;"><use href="#icon-${typeMeta.icon}"></use></svg>
+        <div style="font-family:var(--font-display);font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:#f3efea;">
           ${typeMeta.label}
         </div>
-        <div style="font-family:var(--font-serif);font-style:italic;font-size:0.78rem;color:#b3a49d;">
-          Velvet &amp; Gold
+        <div style="font-family:var(--font-wordmark);font-size:0.88rem;letter-spacing:0.06em;color:#BCB29E;">
+          skaam play
         </div>
       </div>
     </article>

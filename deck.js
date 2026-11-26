@@ -1,5 +1,5 @@
 /**
- * VELVET & GOLD — Expanded Curated Deck (55 Cards)
+ * SKAAM PLAY — Expanded Curated Deck (55 Cards)
  * 15 Allure · 15 Erotic · 15 Naughty · 10 Penalty Suggestions
  * Supports {target} placeholder for seamless 2-player and 3–6 player group play.
  */
@@ -11,7 +11,7 @@ export const TIERS = {
     subtitle: 'The Spark',
     description: 'Atmosphere, eye contact, subtle touch, and magnetic curiosity.',
     spice: 1,
-    accent: '#C87D55',
+    accent: '#BCB29E',
   },
   erotic: {
     id: 'erotic',
@@ -19,7 +19,7 @@ export const TIERS = {
     subtitle: 'The Slow Burn',
     description: 'Sensory play, anticipation, breath, and literary intimacy.',
     spice: 2,
-    accent: '#7A1C2E',
+    accent: '#BDA182',
   },
   naughty: {
     id: 'naughty',
@@ -27,7 +27,7 @@ export const TIERS = {
     subtitle: 'The Surrender',
     description: 'Boldness, playful power dynamics, and unhurried indulgence.',
     spice: 3,
-    accent: '#6B3563',
+    accent: '#C59F7B',
   },
 };
 
