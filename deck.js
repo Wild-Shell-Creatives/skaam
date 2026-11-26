@@ -1,5 +1,5 @@
 /**
- * SKAAM PLAY — Expanded Curated Deck (55 Cards)
+ * SKAAM. PLAY. — Expanded Curated Deck (55 Cards)
  * 15 Allure · 15 Erotic · 15 Naughty · 10 Penalty Suggestions
  * Supports {target} placeholder for seamless 2-player and 3–6 player group play.
  */

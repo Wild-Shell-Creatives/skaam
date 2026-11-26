@@ -479,7 +479,7 @@ function buildPrintBackHtml(card) {
           ${typeMeta.label}
         </div>
         <div style="font-family:var(--font-wordmark);font-size:0.88rem;letter-spacing:0.06em;color:#BCB29E;">
-          skaam play
+          skaam. play.
         </div>
       </div>
     </article>
