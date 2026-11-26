@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velvet &amp; Gold — An Intimate Card &amp; Dice Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Hidden SVG Sprite for crisp gold-foil icons -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <!-- Truth: Keyhole -->
+    <symbol id="icon-keyhole" viewBox="0 0 64 64">
+      <circle cx="32" cy="24" r="11" fill="none" stroke="currentColor" stroke-width="2.5" />
+      <path d="M26 33 L21 54 L43 54 L38 33" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" />
+      <circle cx="32" cy="24" r="3.5" fill="currentColor" />
+    </symbol>
+    <!-- Dare: Flame -->
+    <symbol id="icon-flame" viewBox="0 0 64 64">
+      <path
+        d="M32 7 C32 7 48 21 48 36 C48 47 41 55 32 55 C23 55 16 47 16 36 C16 28 21 21 24 18 C24 23 26 26 28 27 C27 20 30 12 32 7 Z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M32 33 C32 33 39 39 39 45 C39 49.5 36 53 32 53 C28 53 25 49.5 25 45 C25 41 28 37 32 33 Z"
+        fill="currentColor"
+        opacity="0.35"
+      />
+    </symbol>
+    <!-- Penalty: Hourglass -->
+    <symbol id="icon-hourglass" viewBox="0 0 64 64">
+      <line x1="16" y1="10" x2="48" y2="10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+      <line x1="16" y1="54" x2="48" y2="54" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+      <path
+        d="M20 10 L20 18 C20 26 32 30 32 32 C32 34 20 38 20 46 L20 54"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M44 10 L44 18 C44 26 32 30 32 32 C32 34 44 38 44 46 L44 54"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linejoin="round"
+      />
+      <path d="M25 48 L39 48 L32 39 Z" fill="currentColor" opacity="0.45" />
+    </symbol>
+    <!-- Wild: Four-point Star -->
+    <symbol id="icon-wild" viewBox="0 0 64 64">
+      <path
+        d="M32 8 L37 27 L56 32 L37 37 L32 56 L27 37 L8 32 L27 27 Z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.3"
+        stroke-linejoin="round"
+      />
+      <circle cx="32" cy="32" r="3" fill="currentColor" />
+    </symbol>
+  </svg>
+
+  <div class="ambient-bg" aria-hidden="true"></div>
+
+  <!-- Top Navigation -->
+  <header class="topbar no-print">
+    <div class="brand" id="btn-home" role="button" tabindex="0" title="Return to Lounge">
+      <span class="brand-mark">✦</span>
+      <span class="brand-title">Velvet &amp; Gold</span>
+    </div>
+    <nav class="topbar-actions">
+      <button class="btn-ghost" id="btn-sound-toggle" type="button" aria-pressed="true">Sound: On</button>
+      <button class="btn-ghost" id="btn-open-print" type="button">Print Deck</button>
+      <button class="btn-ghost hidden" id="btn-back-setup" type="button">Settings</button>
+    </nav>
+  </header>
+
+  <main class="container no-print">
+    <!-- ==================== VIEW 1: SETUP / LOUNGE ==================== -->
+    <section id="view-setup" class="view active">
+      <div class="hero">
+        <p class="eyebrow">An Intimate Card &amp; Dice Ritual</p>
+        <h1 class="display-title">Velvet &amp; Gold</h1>
+        <p class="subtitle">
+          Roll the die. Draw your fate. Three tiers of escalating intimacy—designed for candlelit evenings.
+        </p>
+      </div>
+
+      <div class="setup-grid">
+        <!-- Players -->
+        <div class="panel">
+          <div class="panel-header-inline">
+            <h2 class="panel-title">I. The Players</h2>
+            <div class="segmented" id="player-count-selector" aria-label="Number of players">
+              <button type="button" class="seg-btn active" data-count="2">2</button>
+              <button type="button" class="seg-btn" data-count="3">3</button>
+              <button type="button" class="seg-btn" data-count="4">4</button>
+              <button type="button" class="seg-btn" data-count="5">5</button>
+              <button type="button" class="seg-btn" data-count="6">6</button>
+            </div>
+          </div>
+          <div class="players-list" id="players-list"></div>
+        </div>
+
+        <!-- Spice Level -->
+        <div class="panel">
+          <h2 class="panel-title">II. Choose Your Spice</h2>
+          <div class="tier-selector" id="tier-selector">
+            <button type="button" class="tier-pill active" data-mode="allure">
+              <span class="tier-pill-head">
+                <strong>Allure</strong>
+                <span class="spice-dots">✦</span>
+              </span>
+              <small>The Spark · Warmth &amp; eye contact</small>
+            </button>
+            <button type="button" class="tier-pill" data-mode="erotic">
+              <span class="tier-pill-head">
+                <strong>Erotic</strong>
+                <span class="spice-dots">✦✦</span>
+              </span>
+              <small>The Slow Burn · Breath &amp; desire</small>
+            </button>
+            <button type="button" class="tier-pill" data-mode="naughty">
+              <span class="tier-pill-head">
+                <strong>Naughty</strong>
+                <span class="spice-dots">✦✦✦</span>
+              </span>
+              <small>The Surrender · Bold &amp; uninhibited</small>
+            </button>
+            <button type="button" class="tier-pill" data-mode="progressive">
+              <span class="tier-pill-head">
+                <strong>Progressive Ritual</strong>
+                <span class="spice-dots">I → III</span>
+              </span>
+              <small>Auto-escalates Allure → Erotic → Naughty</small>
+            </button>
+          </div>
+        </div>
+
+        <!-- Penalty Rules -->
+        <div class="panel panel-wide">
+          <div class="panel-header-inline">
+            <h2 class="panel-title">III. Penalty Protocol</h2>
+            <div class="segmented" id="penalty-mode-toggle">
+              <button type="button" class="seg-btn active" data-pmode="deck">Suggestion Deck (10)</button>
+              <button type="button" class="seg-btn" data-pmode="custom">House Rule</button>
+            </div>
+          </div>
+
+          <div id="penalty-deck-info" class="penalty-info">
+            <p class="muted">
+              When the die lands on <strong>Hourglass (Penalty)</strong>—or when a player passes—draw from the 10 curated Penalty Suggestion cards.
+            </p>
+          </div>
+
+          <div id="penalty-custom-box" class="penalty-custom hidden">
+            <label class="field">
+              <span>Your Agreed House Penalty</span>
+              <textarea
+                id="input-custom-penalty"
+                rows="2"
+                placeholder="e.g., Remove one item of clothing, take a slow sip of wine, or grant your partner a 60-second request..."
+              >Remove one item of clothing slowly, or grant your partner a 60-second uninterrupted request.</textarea>
+            </label>
+          </div>
+
+          <div class="setup-extras">
+            <label class="checkbox-label">
+              <input type="checkbox" id="chk-pass-curtain" />
+              <span>Enable <strong>Pass-the-Device Curtain</strong> between turns (ideal for passing a phone around a group)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <button id="btn-start-game" class="btn-primary" type="button">Begin the Evening</button>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 2: PLAY TABLE ==================== -->
+    <section id="view-play" class="view">
+      <!-- Top Status Bar -->
+      <div class="table-header">
+        <div class="turn-meta">
+          <div class="turn-badge">
+            <span class="turn-label">Current Turn</span>
+            <strong id="active-player-name">Player 1</strong>
+          </div>
+          <button type="button" class="target-pill" id="btn-cycle-target" title="Click to change target player">
+            <span class="target-label">Directed at</span>
+            <strong id="target-player-name">Player 2</strong>
+            <span class="target-swap" id="target-swap-icon">↻</span>
+          </button>
+        </div>
+
+        <div class="tier-status-col">
+          <div class="live-tier-switcher" aria-label="Change Spice Level">
+            <button type="button" class="mini-tier" data-live-mode="allure">Allure</button>
+            <button type="button" class="mini-tier" data-live-mode="erotic">Erotic</button>
+            <button type="button" class="mini-tier" data-live-mode="naughty">Naughty</button>
+            <button type="button" class="mini-tier" data-live-mode="progressive">Progressive</button>
+          </div>
+          <div id="progressive-status" class="progressive-status hidden"></div>
+        </div>
+      </div>
+
+      <!-- Main Stage: Die + Card -->
+      <div class="stage">
+        <!-- Left: Die Panel -->
+        <div class="die-panel">
+          <div class="die-stage">
+            <div id="die" class="die" aria-live="polite">
+              <div class="die-inner">
+                <svg class="die-icon" id="die-icon"><use href="#icon-wild"></use></svg>
+                <span class="die-label" id="die-label">Roll</span>
+              </div>
+            </div>
+          </div>
+
+          <button id="btn-roll" class="btn-primary" type="button">Roll the Die</button>
+
+          <!-- Wild Choice (shown only when Curator's Choice is rolled) -->
+          <div id="wild-choice" class="wild-choice hidden">
+            <p class="wild-prompt">Curator’s Choice — select your draw:</p>
+            <div class="wild-buttons">
+              <button type="button" class="btn-outline" data-wild-pick="truth">
+                <svg class="inline-icon"><use href="#icon-keyhole"></use></svg> Truth
+              </button>
+              <button type="button" class="btn-outline" data-wild-pick="dare">
+                <svg class="inline-icon"><use href="#icon-flame"></use></svg> Dare
+              </button>
+            </div>
+          </div>
+
+          <div class="legend">
+            <span><svg class="inline-icon"><use href="#icon-keyhole"></use></svg> Truth</span>
+            <span><svg class="inline-icon"><use href="#icon-flame"></use></svg> Dare</span>
+            <span><svg class="inline-icon"><use href="#icon-hourglass"></use></svg> Penalty</span>
+          </div>
+        </div>
+
+        <!-- Right: Card Stage -->
+        <div class="card-panel">
+          <div id="card-scene" class="card-scene">
+            <div id="playing-card" class="playing-card" role="button" tabindex="0" aria-label="Flip card">
+              <!-- Card Back -->
+              <div class="card-face card-back">
+                <div class="card-border">
+                  <div class="card-corner top-left">✦</div>
+                  <div class="card-corner bottom-right">✦</div>
+                  <div class="card-back-emblem">
+                    <svg class="back-icon" id="card-back-icon"><use href="#icon-wild"></use></svg>
+                    <span class="back-type-label" id="card-back-label">Roll to Draw</span>
+                    <span class="back-hint" id="card-back-hint">Roll the die to reveal your card</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Front -->
+              <div class="card-face card-front" id="card-front">
+                <div class="card-border">
+                  <div class="card-front-top">
+                    <span class="card-tier-tag" id="card-tier-tag">Allure · ✦</span>
+                    <span class="card-type-badge" id="card-type-badge">
+                      <svg class="badge-icon" id="card-front-icon"><use href="#icon-keyhole"></use></svg>
+                      <span id="card-type-text">Truth</span>
+                    </span>
+                  </div>
+
+                  <div class="card-front-body">
+                    <h3 class="card-title" id="card-title">First Impressions</h3>
+                    <p class="card-prompt" id="card-prompt">
+                      Roll the die to draw your first card.
+                    </p>
+                  </div>
+
+                  <div class="card-front-footer">
+                    <span class="card-cue" id="card-cue">Spoken slowly</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timer Widget (only for timed cards) -->
+          <div id="timer-bar" class="timer-bar hidden">
+            <span class="timer-display" id="timer-display">01:00</span>
+            <div class="timer-controls">
+              <button type="button" class="btn-ghost-sm" id="btn-timer-toggle">Start</button>
+              <button type="button" class="btn-ghost-sm" id="btn-timer-reset">Reset</button>
+            </div>
+          </div>
+
+          <!-- Action Buttons below card -->
+          <div id="card-actions" class="card-actions hidden">
+            <button type="button" class="btn-outline" id="btn-pass-penalty">
+              <svg class="inline-icon"><use href="#icon-hourglass"></use></svg> Pass (Take Penalty)
+            </button>
+            <button type="button" class="btn-primary" id="btn-next-turn">Complete &amp; Next Turn</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: PRINT PREVIEW ==================== -->
+    <section id="view-print" class="view">
+      <div class="print-toolbar">
+        <div>
+          <h2 class="panel-title">Print-Ready Deck</h2>
+          <p class="muted">Formatted for standard 2.5&Prime; &times; 3.5&Prime; playing cards. Use your browser’s Print dialog to save as PDF or print on heavy matte cardstock.</p>
+        </div>
+        <div class="print-toolbar-actions">
+          <label class="checkbox-label">
+            <input type="checkbox" id="chk-include-backs" />
+            <span>Include Card Backs</span>
+          </label>
+          <button type="button" class="btn-ghost" id="btn-close-print">Back</button>
+          <button type="button" class="btn-primary" id="btn-trigger-print">Print / Save PDF</button>
+        </div>
+      </div>
+      <div id="print-preview-grid" class="print-grid"></div>
+    </section>
+  </main>
+
+  <!-- Pass-the-Device Privacy Curtain -->
+  <div id="turn-curtain" class="turn-curtain hidden no-print" role="dialog" aria-modal="true">
+    <div class="curtain-card">
+      <span class="brand-mark" style="font-size:1.6rem;">✦</span>
+      <p class="eyebrow">Next Turn</p>
+      <h2 class="display-title curtain-name" id="curtain-player-name">Player 2</h2>
+      <p class="subtitle">Pass the device before continuing.</p>
+      <button type="button" class="btn-primary" id="btn-curtain-ready">I’m Ready</button>
+    </div>
+  </div>
+
+  <!-- Dedicated Print Container (only visible during @media print) -->
+  <div id="print-sheet" class="print-only"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
