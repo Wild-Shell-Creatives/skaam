@@ -78,6 +78,18 @@ html, body {
   font-size: 1.1rem;
 }
 
+.brand-mark-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--skaam-pine);
+  flex-shrink: 0;
+}
+
+.brand-mark-icon-lg {
+  width: 36px;
+  height: 36px;
+}
+
 .brand-title {
   font-family: var(--font-wordmark);
   letter-spacing: 0.06em;
