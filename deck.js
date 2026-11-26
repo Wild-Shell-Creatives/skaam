@@ -607,3 +607,106 @@ export const PENALTY_CARDS = [
     durationSeconds: 0,
   },
 ];
+
+export const SHOTS_PENALTY_CARDS = [
+  {
+    id: 'shots-1',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'The Slow Shot',
+    prompt:
+      'Pour a shot and take it while holding unbroken eye contact with {target}. No breaking gaze until the glass is back on the table.',
+    cue: 'Shots · Eye contact',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-2',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'The Liquid Veto',
+    prompt:
+      'Take a shot—and {target} earns a "Free Command" token they can redeem at any point during the rest of the game (within your agreed boundaries).',
+    cue: 'Shots · Redeemable',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-3',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'Shared Pour',
+    prompt:
+      'Pour two shots—one for yourself and one for {target}. Clink glasses, whisper a toast only they can hear, and drink together.',
+    cue: 'Shots · Together',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-4',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'The Bartender’s Choice',
+    prompt:
+      '{target} chooses your next pour—a shot, a generous sip of wine, or a mystery mix from the table. Drink it without flinching.',
+    cue: 'Shots · Dealer pours',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-5',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'No Hands',
+    prompt:
+      'Take a slow sip of your drink while {target} holds the glass to your lips. Keep your hands behind your back the entire time.',
+    cue: 'Sips · Hands behind back',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-6',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'The Confessional Sip',
+    prompt:
+      'Take two slow sips of your drink, then answer one off-the-deck yes-or-no question from {target} with complete honesty.',
+    cue: 'Sips · Honest',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-7',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'The Chaser',
+    prompt:
+      'Take a shot, then let {target} choose your chaser: a slow kiss on the neck, a whispered dare, or a sip from their glass.',
+    cue: 'Shots · Chaser',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-8',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'Finish the Glass',
+    prompt:
+      'Finish whatever is left in your glass (or take a full shot if it’s empty) while {target} counts down softly from ten.',
+    cue: 'Shots · 10 seconds',
+    durationSeconds: 10,
+  },
+  {
+    id: 'shots-9',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'The Blindfolded Taste',
+    prompt:
+      'Close your eyes while {target} brings a sip of their choosing to your lips. Guess what it is—if you’re wrong, take a second sip.',
+    cue: 'Sips · Eyes closed',
+    durationSeconds: 0,
+  },
+  {
+    id: 'shots-10',
+    tier: 'penalty',
+    type: 'penalty',
+    title: 'Toast to the Room',
+    prompt:
+      'Raise your glass, deliver a shamelessly flattering toast dedicated to {target}, and take a shot to seal it.',
+    cue: 'Shots · Toast',
+    durationSeconds: 0,
+  },
+];

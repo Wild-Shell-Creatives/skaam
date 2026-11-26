@@ -1,4 +1,4 @@
-import { TIERS, CARD_TYPES, TIER_CARDS, PENALTY_CARDS } from './deck.js';
+import { TIERS, CARD_TYPES, TIER_CARDS, PENALTY_CARDS, SHOTS_PENALTY_CARDS } from './deck.js';
 
 // 6-sided die faces: 2 Truth, 2 Dare, 1 Penalty, 1 Wild (Curator's Choice)
 const DIE_FACES = ['truth', 'dare', 'truth', 'dare', 'penalty', 'wild'];
@@ -138,6 +138,7 @@ const els = {
   tierPills: document.querySelectorAll('.tier-pill'),
   penaltySegBtns: document.querySelectorAll('#penalty-mode-toggle .seg-btn'),
   penaltyDeckInfo: document.getElementById('penalty-deck-info'),
+  penaltyShotsInfo: document.getElementById('penalty-shots-info'),
   penaltyCustomBox: document.getElementById('penalty-custom-box'),
   inputCustomPenalty: document.getElementById('input-custom-penalty'),
   chkPassCurtain: document.getElementById('chk-pass-curtain'),
@@ -350,6 +351,9 @@ function drawCard(type) {
         durationSeconds: 0,
       };
     }
+    if (state.penaltyMode === 'shots') {
+      return pickFromPool(SHOTS_PENALTY_CARDS);
+    }
     return pickFromPool(PENALTY_CARDS);
   }
 
@@ -410,7 +414,7 @@ function flipCurrentCard() {
 
   els.btnPassPenalty.classList.toggle('hidden', state.currentCard.type === 'penalty');
 
-  if (state.currentCard.id === 'penalty-2') {
+  if (state.currentCard.id === 'penalty-2' || state.currentCard.id === 'shots-2') {
     awardCommandToken(state.targetPlayerIndex);
   }
 
@@ -558,7 +562,8 @@ function buildPrintBackHtml(card) {
 }
 
 function renderPrintDeck() {
-  const allCards = [...TIER_CARDS, ...PENALTY_CARDS];
+  const penaltyPool = state.penaltyMode === 'shots' ? SHOTS_PENALTY_CARDS : PENALTY_CARDS;
+  const allCards = [...TIER_CARDS, ...penaltyPool];
   const includeBacks = els.chkIncludeBacks.checked;
   let html = allCards.map(buildPrintCardHtml).join('');
   if (includeBacks) {
@@ -666,6 +671,7 @@ els.penaltySegBtns.forEach((btn) => {
     btn.classList.add('active');
     state.penaltyMode = btn.dataset.pmode;
     els.penaltyDeckInfo.classList.toggle('hidden', state.penaltyMode !== 'deck');
+    els.penaltyShotsInfo.classList.toggle('hidden', state.penaltyMode !== 'shots');
     els.penaltyCustomBox.classList.toggle('hidden', state.penaltyMode !== 'custom');
   });
 });
