@@ -737,6 +737,10 @@ els.btnNextTurn.addEventListener('click', () => {
   if (state.mode === 'progressive') {
     state.progressiveTurnCount += 1;
   }
+  if (state.commandTokenRedeemed) {
+    state.commandTokenOwner = null;
+    state.commandTokenRedeemed = false;
+  }
   state.currentPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
   pickRandomTarget();
   updatePlayerDisplay();

@@ -552,8 +552,8 @@ export const PENALTY_CARDS = [
     type: 'penalty',
     title: 'The Confession',
     prompt:
-      'Instead of a physical penalty, answer one off-the-deck question of {target}’s choice—with complete honesty.',
-    cue: 'Penalty · Off-the-deck',
+      'Instead of a physical penalty, answer any question of {target}’s own choosing—with complete honesty.',
+    cue: 'Penalty · Honest',
     durationSeconds: 0,
   },
   {
@@ -665,7 +665,7 @@ export const SHOTS_PENALTY_CARDS = [
     type: 'penalty',
     title: 'The Confessional Sip',
     prompt:
-      'Take two slow sips of your drink, then answer one off-the-deck yes-or-no question from {target} with complete honesty.',
+      'Take two slow sips of your drink, then answer any yes-or-no question of {target}’s own choosing with complete honesty.',
     cue: 'Sips · Honest',
     durationSeconds: 0,
   },
